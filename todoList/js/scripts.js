@@ -11,57 +11,55 @@ class ToDo {
 }
 
 // Array
-let ToDos = []
+let arrayTodos = []
 
 //funções projeto
 
 function CriarToDo(texto, prioridade, array) {
-  let novoToDo = new ToDo(texto, prioridade)
-  if (!array.some(novoToDo)) {
-    array.push(novoToDo)
+  let objetoTodo = new ToDo(texto, prioridade)
+  if (!array.some(tarefa => tarefa.Texto == texto)) {
+    array.push(objetoTodo)
   }
-  return novoToDo
+  return objetoTodo
 }
 
 function AtualizarToDo(textoAntigo, textoNovo, array) {
-  let atualizou
+  let atualizou = false
   array.forEach((tarefa) => {
-    if (tarefa.Texto === textoAntigo) {
+    if (tarefa.Texto == textoAntigo) {
       tarefa.Texto = textoNovo
       atualizou = true
-    } else {
-      atualizou = false
     }
-    return atualizou
   })
+  return atualizou
 }
 
 function ConcluirToDo(array, texto) {
-  let concluido
+  let concluido = false
   array.forEach((tarefa) => {
-    if (tarefa.Texto === texto) {
-      tarefa.Feito = !tarefa.Feito
+    if (tarefa.Texto == texto) {
+      if(tarefa.Feito){
+        tarefa.Feito = false
+      }else{
+        tarefa.Feito = true
+      }
       concluido = true
-    } else {
-      concluido = false
     }
-    return concluido
   })
+  return concluido
 }
 
 function ExcluirToDo(array, texto) {
-  let excluido
+  let excluido = false
   let index
   array.forEach((tarefa) => {
-    if (tarefa.Texto === texto) {
+    if (tarefa.Texto == texto) {
       index = array.indexOf(tarefa)
-      array.slice(index,1)
       excluido = true
-    } else {
-      excluido = false
     }
-    return excluido
   })
+  array.slice(index,1)
+  return excluido
 }
 
 function PesquisarToDo(array, texto) {
