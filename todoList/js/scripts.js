@@ -1,39 +1,87 @@
 // Clase
 
 class ToDo {
-
+  Texto
+  Prioridade
+  Feito = false
+  constructor(texto, prioridade) {
+    this.Texto = texto
+    this.Prioridade = prioridade
+  }
 }
 
 // Array
-
+let ToDos = []
 
 //funções projeto
 
-function CriarToDo() {
-
+function CriarToDo(texto, prioridade, array) {
+  let novoToDo = new ToDo(texto, prioridade)
+  if (!array.some(novoToDo)) {
+    array.push(novoToDo)
+  }
+  return novoToDo
 }
 
-function AtualizarToDo() {
-
+function AtualizarToDo(textoAntigo, textoNovo, array) {
+  let atualizou
+  array.forEach((tarefa) => {
+    if (tarefa.Texto === textoAntigo) {
+      tarefa.Texto = textoNovo
+      atualizou = true
+    } else {
+      atualizou = false
+    }
+    return atualizou
+  })
 }
 
-function ConcluirToDo() {
-
+function ConcluirToDo(array, texto) {
+  let concluido
+  array.forEach((tarefa) => {
+    if (tarefa.Texto === texto) {
+      tarefa.Feito = !tarefa.Feito
+      concluido = true
+    } else {
+      concluido = false
+    }
+    return concluido
+  })
 }
 
-function ExcluirToDo() {
-
+function ExcluirToDo(array, texto) {
+  let excluido
+  let index
+  array.forEach((tarefa) => {
+    if (tarefa.Texto === texto) {
+      index = array.indexOf(tarefa)
+      array.slice(index,1)
+      excluido = true
+    } else {
+      excluido = false
+    }
+    return excluido
+  })
 }
 
-function PesquisarToDo() {
- 
+function PesquisarToDo(array, texto) {
+  let pesquisa = false
+  array.forEach((tarefa)=>{
+    if(tarefa.Texto.includes(texto)){
+      pesquisa = true
+    }
+  })
+
+  return pesquisa
 }
 
-function OrdenarCrescente() {
-  
+function OrdenarCrescente(array) {
+  array.sort((a, b)=> a.Prioridade - b.Prioridade)
+  return array
 }
-function OrdenarDecrescente() {
-  
+function OrdenarDecrescente(array) {
+  array.sort((a, b)=> b.Prioridade - a.Prioridade)
+  return array
 }
 
 // Seleção de elementos
@@ -116,7 +164,7 @@ const updateTodo = (text) => {
 
   });
 
-  let atualizado = AtualizarToDo(targetTodo.innerText, text,arrayTodos)
+  let atualizado = AtualizarToDo(targetTodo.innerText, text, arrayTodos)
 
   if (atualizado) {
     targetTodo.innerText = text;
